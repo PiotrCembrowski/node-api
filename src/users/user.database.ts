@@ -114,3 +114,15 @@ export const update = async (
 
   return users[id];
 };
+
+export const remove = async (id: string): Promise<null | void> => {
+  const user = await findOne(id);
+
+  if (!user) {
+    return null;
+  }
+
+  delete users[id];
+
+  saveUsers();
+};
