@@ -69,3 +69,21 @@ export const findByEmail = async (
 
   return getUser;
 };
+
+export const comparePassword = async (
+  email: string,
+  supplied_password: string
+): Promise<null | UnitUser> => {
+  const user = await findByEmail(email);
+
+  const decryptPassword = await bcrypt.compare(
+    supplied_password,
+    user!.password
+  );
+
+  if (!decryptPassword) {
+    return null;
+  }
+
+  return user;
+};
