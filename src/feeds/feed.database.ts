@@ -66,3 +66,15 @@ export const update = async (
 
   return posts[id];
 };
+
+export const remove = async (id: string): Promise<null | void> => {
+  const post = await findOne(id);
+
+  if (!post) {
+    return null;
+  }
+
+  delete posts[id];
+
+  savePosts();
+};
