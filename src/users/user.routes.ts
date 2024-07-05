@@ -123,3 +123,23 @@ userRouter.put("/user/:id", async (req: Request, res: Response) => {
     return res.status(500).json({ error });
   }
 });
+
+userRouter.delete("/user/:id", async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const user = await database.findOne(id);
+
+    if (!user) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ error: "User does not exist" });
+    }
+
+    await database.remove(id);
+
+    return res.status(StatusCodes.OK).json({ msg: "User deleted." });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+  }
+});
