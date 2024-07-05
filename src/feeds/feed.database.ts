@@ -13,3 +13,12 @@ function LoadPosts(): Posts {
     return {};
   }
 }
+
+function savePosts() {
+  try {
+    fs.writeFileSync("./feeds.json", JSON.stringify(posts), "utf-8");
+    console.log("Posts saved successfully");
+  } catch (error) {
+    console.log("Error", error);
+  }
+}
