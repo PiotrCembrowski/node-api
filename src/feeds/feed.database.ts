@@ -46,3 +46,23 @@ export const create = async (postInfo: Post): Promise<null | UnitPost> => {
 
   return posts[id];
 };
+
+export const update = async (
+  id: string,
+  updateValues: Post
+): Promise<UnitPost | null> => {
+  const post = await findOne(id);
+
+  if (!post) {
+    return null;
+  }
+
+  posts[id] = {
+    id,
+    ...updateValues,
+  };
+
+  savePosts();
+
+  return posts[id];
+};
