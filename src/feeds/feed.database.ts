@@ -22,3 +22,27 @@ function savePosts() {
     console.log("Error", error);
   }
 }
+
+export const findAll = async (): Promise<UnitPost[]> => Object.values(posts);
+
+export const findOne = async (id: string): Promise<UnitPost> => posts[id];
+
+export const create = async (postInfo: Post): Promise<null | UnitPost> => {
+  let id = random();
+
+  let product = await findOne(id);
+
+  while (post) {
+    id = random();
+    await findOne(id);
+  }
+
+  posts[id] = {
+    id: id,
+    ...postInfo,
+  };
+
+  savePosts();
+
+  return posts[id];
+};
