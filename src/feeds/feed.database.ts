@@ -30,7 +30,7 @@ export const findOne = async (id: string): Promise<UnitPost> => posts[id];
 export const create = async (postInfo: Post): Promise<null | UnitPost> => {
   let id = random();
 
-  let product = await findOne(id);
+  let post = await findOne(id);
 
   while (post) {
     id = random();
