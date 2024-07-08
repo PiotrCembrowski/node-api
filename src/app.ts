@@ -1,18 +1,19 @@
-import express, { Application } from "express";
-import * as dotenv from "dotenv";
+import express from "express";
+import * as dotevnv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import { userRouter } from "./users/user.routes";
+import { postRouter } from "./feeds/feed.routes";
 
-dotenv.config();
+dotevnv.config();
 
 if (!process.env.PORT) {
-  console.log("No port value specified...");
+  console.log(`No port value specified...`);
 }
 
 const PORT = parseInt(process.env.PORT as string, 10);
 
-const app: Application = express();
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -20,7 +21,8 @@ app.use(cors());
 app.use(helmet());
 
 app.use("/", userRouter);
+app.use("/", postRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is listening on port ${PORT}`);
 });
